@@ -1,4 +1,3 @@
-# next-gen-pizza-backend
 # 🍕 Next-Gen Pizza Backend
 
 A cloud-native, microservices-based backend for a **smart pizza ordering system**, built with **Spring Boot, Kafka, Docker, and Kubernetes**.
