@@ -1,46 +1,33 @@
-# 🍕 Next-Gen Pizza Backend
+# Next-Gen Pizza Backend
 
-A cloud-native, microservices-based backend for a **smart pizza ordering system**, built with **Spring Boot, Kafka, Docker, and Kubernetes**.
+## Overview
+The **Next-Gen Pizza Backend** is a scalable microservices-based backend architecture designed to power modern pizza delivery applications. It provides core functionalities like cart management, order processing, payments, store management, authentication, notifications, and API gateway services.
 
----
+## Features
+- 🍕 **Cart Service** – Manage user carts and items.
+- 📦 **Order Service** – Process orders and track order statuses.
+- 💳 **Payment Service** – Handle secure transactions.
+- 🏬 **Store Service** – Manage store locations and menus.
+- 🔔 **Notification Service** – Send email, SMS, and push notifications.
+- 🔑 **Auth Service** – User authentication and authorization.
+- 🚪 **Gateway Service** – API Gateway for routing requests.
+- 📡 **Kafka Event Streaming** – Event-driven architecture.
+- 🏗 **Kubernetes Deployment** – Scalable cloud-native setup.
 
-## 📌 Features
-✅ **Microservices Architecture** – Independent services for cart, orders, payments, store management, notifications, authentication, and API gateway.  
-✅ **Event-Driven System** – Uses Kafka for real-time event streaming.  
-✅ **Scalable & Resilient** – Runs on Kubernetes with auto-scaling and fault tolerance.  
-✅ **Secure** – JWT-based authentication with OAuth2 support.  
-✅ **Cloud-Ready** – Deployable on AWS/GCP using Terraform & Kubernetes.
+## Tech Stack
+- **Backend:** Java (Spring Boot, Spring Security, Spring Cloud)
+- **Message Queue:** Apache Kafka
+- **API Gateway:** Spring Cloud Gateway
+- **Database:** PostgreSQL / MongoDB
+- **Infrastructure:** Kubernetes (GKE), Terraform, Docker, Jenkins
+- **Authentication:** OAuth2, JWT
+- **Monitoring:** Prometheus, Grafana
 
----
-
-## 🛠️ Tech Stack
-
-| Tech            | Purpose |
-|----------------|---------|
-| **Java 17**    | Backend Development (Spring Boot) |
-| **Spring Boot** | Microservices framework |
-| **Kafka**      | Event-driven messaging |
-| **Docker**     | Containerization |
-| **Kubernetes** | Orchestration |
-| **Terraform**  | Infrastructure as Code (IaC) |
-| **PostgreSQL** | Database |
-| **Redis**      | Caching |
-| **JWT & OAuth2** | Authentication |
-| **Maven**      | Build tool |
-
----
-
-## 📂 Project Structure
+## Repository Structure
 ```
-next-gen-pizza-backend/  📂 (Root Repository)
+next-gen-pizza-backend/
 │── services/            📂 (All backend microservices)
 │   ├── cart-service/  
-│   │   ├── src/  
-│   │   ├── config/      📂 (Externalized configs: application.yml, env vars)
-│   │   ├── test/        📂 (Unit & integration tests)
-│   │   ├── Dockerfile  
-│   │   ├── pom.xml  
-│   │   └── README.md  
 │   ├── order-service/  
 │   ├── payment-service/  
 │   ├── store-service/  
@@ -51,97 +38,93 @@ next-gen-pizza-backend/  📂 (Root Repository)
 │   ├── common-dtos/     📂 (DTOs for API request/response)
 │   ├── event-models/    📂 (Kafka event payloads)
 │   ├── security-utils/  📂 (JWT, OAuth2 utilities)
-│   ├── kafka-config/    📂 (Centralized Kafka producer/consumer configs)
+│   ├── kafka-config/    📂 (Centralized Kafka configs)
 │── infra/               📂 (Infrastructure & DevOps)
 │   ├── terraform/       📂 (Infra as Code - GKE, VPC, DB, etc.)
 │   ├── k8s-manifests/   📂 (Kubernetes YAMLs)
 │   ├── local/           📂 (Local dev setup)
-│   │   ├── docker-compose.yml  📄 (Local development environment)
-│   │   ├── env.sample          📄 (Sample .env file)
 │── scripts/             📂 (Automation & Deployment Scripts)
-│   ├── build.sh  
-│   ├── deploy.sh  
-│   ├── test.sh  
-│   ├── clean.sh         📄 (Removes unused containers, images, logs)
 │── .github/             📂 (CI/CD Pipelines & GitHub Actions)
-│   ├── workflows/  
 │── Makefile             📄 (Helper commands for build, test & deploy)
 │── .gitignore  
-│── README.md   
+│── README.md  
 ```
 
----
-
-## 🚀 Getting Started
-
-### **1️⃣ Prerequisites**
-Ensure you have the following installed:
-- Java 17
-- Maven
-- Docker & Docker Compose
-- Kubernetes CLI (kubectl)
-- Terraform (for cloud deployments)
-
-### **2️⃣ Clone the Repository**
+## Setup & Installation
+### **1. Clone Repository**
 ```sh
-git clone https://github.com/your-username/next-gen-pizza-backend.git
+git clone https://github.com/your-repo/next-gen-pizza-backend.git
 cd next-gen-pizza-backend
 ```
 
-### **3️⃣ Build the Microservices**
+### **2. Configure Environment**
 ```sh
-make build
+cp infra/local/env.sample .env
 ```
 
-### **4️⃣ Run Locally using Docker Compose**
+### **3. Start Services**
+#### **Using Docker Compose (Local Development)**
 ```sh
-make docker-up
+docker-compose up -d
 ```
 
-### **5️⃣ Run Tests**
+#### **Using Maven (For Individual Services)**
 ```sh
-make test
+cd services/cart-service
+mvn spring-boot:run
 ```
 
-### **6️⃣ Deploy to Kubernetes**
+### **4. Running Tests**
 ```sh
-make deploy-k8s
+mvn test
 ```
 
----
-
-## 📜 API Documentation
-Each microservice exposes RESTful APIs. Use **Postman** or **Swagger UI** for testing. Example:
+## Deployment
+### **To Kubernetes (GKE)**
 ```sh
-GET http://localhost:8080/api/orders
+kubectl apply -f infra/k8s-manifests/
 ```
 
-- `gateway-service`: API Gateway for routing
-- `cart-service`: Manages user carts
-- `order-service`: Handles order placement
-- `payment-service`: Processes payments
-- `notification-service`: Sends order updates
-- `store-service`: Manages store inventory
-- `auth-service`: User authentication & authorization
+### **Terraform Deployment**
+```sh
+cd infra/terraform
+terraform init
+terraform apply
+```
 
----
+## API Documentation
+The API is documented using OpenAPI (Swagger):
+- **Local:** `http://localhost:8080/swagger-ui.html`
+- **Staging:** `https://staging.yourdomain.com/swagger-ui.html`
+- **Production:** `https://api.yourdomain.com/swagger-ui.html`
 
-## 🎯 Contribution Guidelines
-1. **Fork the repo** and create a feature branch.
-2. **Commit your changes** with proper messages.
-3. **Create a pull request** and describe your changes.
+## Project Management
+We are tracking sprint-wise tasks in a GitHub Project. Check out the latest progress here:  
+➡️ [Next-Gen Pizza Backend - Sprint Tasks](https://github.com/users/ashwani-cse/projects/3/views/1)
 
----
+## Documentation & Wiki
+For detailed documentation, check out the project wiki:  
+📖 [Next-Gen Pizza Backend - GitHub Wiki](https://github.com/ashwani-cse/next-gen-pizza-backend/wiki)
 
-## 🛡️ License
+## Contribution Guidelines
+1. Fork the repository & create a new branch.
+2. Make your changes and run tests.
+3. Submit a Pull Request (PR).
+4. Ensure code reviews and approvals before merging.
+
+## Stay Connected
+Connect with us on social media and stay updated with the latest news and developments:
+
+- [LinkedIn](https://www.linkedin.com/in/ashwanicse/)
+- [Leetcode](https://leetcode.com/ashwani__kumar/)
+- [Need Help? Schedule A Call](https://topmate.io/ashwanikumar)
+
+## Subscribe to our Newsletter
+Stay ahead of the curve by subscribing to our LinkedIn newsletter:
+- [Subscribe Now](https://www.linkedin.com/newsletters/7084124970443767808/)
+
+## License
 This project is licensed under the **MIT License**.
 
 ---
-
-## 🙌 Acknowledgements
-Special thanks to the **developer community** for inspiring this project!
-
----
-
-**🚀 Happy Coding & Enjoy Your Pizza! 🍕**
-
+🚀 **Built with ❤️ by Next-Gen Pizza Team**
