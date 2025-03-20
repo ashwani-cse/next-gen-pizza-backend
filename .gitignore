@@ -1,0 +1,40 @@
+# Ignore Java build files
+target/
+*.jar
+*.war
+*.ear
+
+# Ignore IDE settings
+.idea/
+*.iml
+.vscode/
+*.classpath
+*.project
+*.settings/
+
+# Ignore environment files
+.env
+
+# Ignore OS-generated files
+.DS_Store
+Thumbs.db
+
+# Ignore dependency directories
+/node_modules/
+/.mvn/
+/.gradle/
+
+# Ignore logs and temp files
+*.log
+logs/
+*.tmp
+*.swp
+
+# Ignore build tool output
+/build/
+out/
+
+# Ignore test coverage and reports
+/coverage/
+/test-output/
+/reports/
